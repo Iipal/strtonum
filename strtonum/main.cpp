@@ -24,7 +24,6 @@ class strtoNum {
 private:
 	string str;
 public:
-	strtoNum() { }
 	strtoNum(const string _str) : str(_str) { }
 	strtoNum(strtoNum const *stN) : str(stN->str) { }
 
