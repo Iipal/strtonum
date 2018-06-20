@@ -40,7 +40,7 @@ public:
 		}
 
 		createNumberString *numStr = new createNumberString(sizeNumStr);
-
+		
 		for (int i(0); i != _str.str.length(); ++i) {
 			if ((int)_str.str[i] < 10)
 				numStr->setENS(i, (int)_str.str[i]);
@@ -61,8 +61,16 @@ public:
 
 int main() {
 	strtoNum *_str = new strtoNum("Hello");
-	createNumberString *numArray = _str->convert(_str); 
+	//examples
 
+	createNumberString *n1 = new createNumberString(5);
+	n1->showNS();
+	n1->setENS(3, 9);
+
+	createNumberString *n2 = new createNumberString(n2); // it works right
+	n2->showNS(); 
+
+	createNumberString *numArray = _str->convert(_str); // why this dont work right ?
 	numArray->showNS();
 
 	system("pause");
