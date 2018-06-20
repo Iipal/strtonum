@@ -10,12 +10,15 @@ private:
 	int *_numStr = new int[_sizeStr];
 public:
 	createNumberString(int const sizeStr) : _sizeStr(sizeStr) { }
-	createNumberString(createNumberString const *cNS) : _sizeStr(cNS->_sizeStr) { }
+	createNumberString(createNumberString const *cNS) : _sizeStr(cNS->_sizeStr){
+		for (int i(0); i != cNS->_sizeStr; ++i)
+			this->_numStr[i] = cNS->_numStr[i];
+	}
 
 	void setENS(const int i, const int value) { _numStr[i] = value; }
 	void showNS() const {
-		for (int i(0); i < _sizeStr; ++i)
-			cout << _numStr[i];
+		for(int i(0); i != _sizeStr; ++i)
+			cout << _numStr[i] << ' ';
 	}
 	
 	~createNumberString() { delete[] _numStr; }
@@ -51,16 +54,21 @@ public:
 				numStr->setENS((i + 2), ((int)_str.str[i] % 10));
 			}
 		}
+
 		return numStr;
 	}
 };
 
 int main() {
 	strtoNum *_str = new strtoNum("Hello");
-	createNumberString *numArray = _str->convert(_str);
+	createNumberString *numArray = _str->convert(_str); 
 
 	numArray->showNS();
 
 	system("pause");
+
+	delete _str;
+	delete numArray;
+	
 	return 0;
 }
