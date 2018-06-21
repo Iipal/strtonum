@@ -9,8 +9,11 @@ private:
 	int const _sizeStr = 0;
 	int *_numStr = new int[_sizeStr];
 public:
-	createNumberString(int const sizeStr) : _sizeStr(sizeStr) { }
-	createNumberString(createNumberString const *cNS) : _sizeStr(cNS->_sizeStr){
+	createNumberString(int const sizeStr) : _sizeStr(sizeStr) {
+		for (int i(0); i != _sizeStr; ++i)
+			_numStr[i] = i + 1;
+	}
+	createNumberString(createNumberString const *cNS) : _sizeStr(cNS->_sizeStr) {
 		for (int i(0); i != cNS->_sizeStr; ++i)
 			this->_numStr[i] = cNS->_numStr[i];
 	}
@@ -67,11 +70,17 @@ int main() {
 	n1->showNS();
 	n1->setENS(3, 9);
 
-	createNumberString *n2 = new createNumberString(n2); // it works right
+	cout << endl;
+
+	createNumberString *n2 = new createNumberString(n1); // it works right
 	n2->showNS(); 
+
+	cout << endl;
 
 	createNumberString *numArray = _str->convert(_str); // why this dont work right ?
 	numArray->showNS();
+
+	cout << endl;
 
 	system("pause");
 
