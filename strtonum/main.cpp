@@ -19,7 +19,7 @@ public:
 	}
 
 	void setENA(cint i, cint value) { _numArr[i] = value; }
-	void getNA ()	   const		{
+	void getNA ()       const       {
 		for(int i(0); i != _sizeArr; ++i)
 			cout << _numArr[i] << ' ';
 		cout << endl;
