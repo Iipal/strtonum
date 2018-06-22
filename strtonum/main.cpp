@@ -1,91 +1,63 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
-using namespace std;
+typedef const int cint; // just for try used this
 
-struct createNumberString {
+using std::cout;
+using std::endl;
+using std::string;
+
+struct NumberArray {
 private:
-	int const _sizeStr = 0;
-	int *_numStr = new int[_sizeStr];
+	cint _sizeArr = 0;
+	int *_numArr  = new int[_sizeArr];
 public:
-	createNumberString(int const sizeStr) : _sizeStr(sizeStr) {
-		for (int i(0); i != _sizeStr; ++i)
-			_numStr[i] = i + 1;
-	}
-	createNumberString(createNumberString const *cNS) : _sizeStr(cNS->_sizeStr) {
-		for (int i(0); i != cNS->_sizeStr; ++i)
-			this->_numStr[i] = cNS->_numStr[i];
+	NumberArray(      cint size      ) : _sizeArr(size) { }
+	NumberArray(const NumberArray *NS) : _sizeArr(NS->_sizeArr) {
+		for (int i(0); i != NS->_sizeArr; ++i)
+			this->_numArr[i] = NS->_numArr[i];
 	}
 
-	void setENS(const int i, const int value) { _numStr[i] = value; }
-	void showNS() const {
-		for(int i(0); i != _sizeStr; ++i)
-			cout << _numStr[i] << ' ';
+	void setENA(cint i, cint value) { _numArr[i] = value; }
+	void getNA ()	   const		{
+		for(int i(0); i != _sizeArr; ++i)
+			cout << _numArr[i] << ' ';
+		cout << endl;
 	}
 	
-	~createNumberString() { delete[] _numStr; }
+	~NumberArray() { delete[] _numArr; }
 };
-class strtoNum {
+
+class String {
 private:
-	string str;
+	string _str;
 public:
-	strtoNum(const string _str) : str(_str) { }
-	strtoNum(strtoNum const *stN) : str(stN->str) { }
+	String(const string	 str ) : _str(   str   ) { }
+	String(const String  *stN) : _str(stN->_str) { }
 
-	createNumberString* convert(strtoNum const _str) {
-		int sizeNumStr = 0;
+	void getStr() { cout << _str << endl; }
 
-		for (int i(0); i < _str.str.length(); ++i) {
-			if ((int)_str.str[i] < 10)			sizeNumStr += 1;
-			else if ((int)_str.str[i] < 100)	sizeNumStr += 2;
-			else if ((int)_str.str[i] < 1000)	sizeNumStr += 3;
-		}
+	NumberArray *convert(const String str) {
+		NumberArray *numArr = new NumberArray(str._str.length());
 
-		createNumberString *numStr = new createNumberString(sizeNumStr);
-		
-		for (int i(0); i != _str.str.length(); ++i) {
-			if ((int)_str.str[i] < 10)
-				numStr->setENS(i, (int)_str.str[i]);
-			else if ((int)_str.str[i] < 100) {
-				numStr->setENS(i, ((int)_str.str[i] / 10));
-				numStr->setENS((i + 1), ((int)_str.str[i] % 10));
-			}
-			else if ((int)_str.str[i] < 1000) {
-				numStr->setENS(i, ((int)_str.str[i] / 100));
-				numStr->setENS((i + 1), (((int)_str.str[i] / 10) % 10));
-				numStr->setENS((i + 2), ((int)_str.str[i] % 10));
-			}
-		}
+		for (int i(0); i != str._str.length(); ++i)
+			numArr->setENA(i, (int)str._str[i]);
 
-		return numStr;
+		return numArr;
 	}
 };
 
 int main() {
-	strtoNum *_str = new strtoNum("Hello");
-	//examples
+	String			*str		= new String("Hello");
+	NumberArray		*numArr		= str->convert(str);
 
-	createNumberString *n1 = new createNumberString(5);
-	n1->showNS();
-	n1->setENS(3, 9);
-
-	cout << endl;
-
-	createNumberString *n2 = new createNumberString(n1); // it works right
-	n2->showNS(); 
-
-	cout << endl;
-
-	createNumberString *numArray = _str->convert(_str); // why this dont work right ?
-	numArray->showNS();
-
-	cout << endl;
+	str->getStr();
+	numArr->getNA();
 
 	system("pause");
 
-	delete _str;
-	delete numArray;
+	delete str;
+	delete numArr;
 	
 	return 0;
 }
